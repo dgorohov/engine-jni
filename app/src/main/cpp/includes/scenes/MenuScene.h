@@ -13,9 +13,10 @@ private:
     AudioEffect* audioEffect;
     virtual void dispose() override;
 public:
+    MenuScene() : Scene("Menu") {}
+
     ~MenuScene() {}
-    virtual void initialize() override;
-    virtual void render() override;
+    virtual void initialize(float width, float height) override;
 };
 
 #endif //GAME_ENGINE_JNI_MENUSCENE_H

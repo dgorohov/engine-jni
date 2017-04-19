@@ -24,7 +24,6 @@ EXPORTED(void, nativeOnSurfaceCreated)(JNIEnv *env, jobject /* this */,
 EXPORTED(void, nativeOnRender)(JNIEnv *env, jobject /* this */) {
     if (mainEngine) {
         mainEngine->update();
-        mainEngine->render();
     }
 }
 

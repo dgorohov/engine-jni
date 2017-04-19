@@ -13,11 +13,8 @@ void MainEngine::update() {
         setScene(nextScene);
         nextScene = 0;
     }
-}
-
-void MainEngine::render() {
     if (currentScene) {
-        currentScene->render();
+        currentScene->update();
     }
 }
 
@@ -28,6 +25,6 @@ void MainEngine::setScene(Scene *scene) {
             currentScene = 0;
         }
         currentScene = scene;
-        currentScene->initialize();
+        currentScene->initialize(this->width, this->height);
     }
 }

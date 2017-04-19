@@ -2,23 +2,29 @@
 #define GAME_ENGINE_JNI_SCENE_H
 
 #include <vector>
-#include <controls/GameObject.h>
+#include <controls/ObjectContainer.h>
+
+class ObjectContainer;
 
 class Scene {
 private:
-    std::vector<GameObject *> gameObjects;
+    ObjectContainer *container;
+    const char *sceneName;
+
     virtual void dispose() {};
 public:
+    Scene(const char *sceneName) : sceneName(sceneName) {}
+
     virtual ~Scene() {
         dispose();
     }
 
-    virtual void initialize() = 0;
+    virtual void initialize(float width, float height);
 
-    virtual void render() {
-        for (int i = 0; i < gameObjects.size(); i++) {
-            gameObjects[i]->render();
-        }
+    virtual void update();
+
+    ObjectContainer *getContainer() const {
+        return container;
     }
 };
 

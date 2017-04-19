@@ -25,8 +25,6 @@ public:
 
     void update();
 
-    void render();
-
     void dispose() {
         if (currentScene) {
             delete currentScene;
