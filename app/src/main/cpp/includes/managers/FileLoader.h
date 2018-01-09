@@ -10,26 +10,26 @@
 
 class FileLoader {
 private:
-    AAssetManager* assetManager;
+    AAssetManager *assetManager;
 public:
-    static FileLoader* makeInstance(){
-        static FileLoader* instance;
+    static FileLoader *makeInstance() {
+        static FileLoader *instance;
 
-        if (instance == 0){
+        if (instance == 0) {
             instance = new FileLoader();
         }
 
         return instance;
     }
 
-    void initialize(AAssetManager* assetManager) {
+    void initialize(AAssetManager *assetManager) {
         this->assetManager = assetManager;
     }
 
-    void destroy() { }
+    void destroy() {}
 
-    int load(const char* fileName, off_t &start, off_t &length) {
-        AAsset* asset = AAssetManager_open(assetManager, fileName, AASSET_MODE_UNKNOWN);
+    int load(const char *fileName, off_t &start, off_t &length) {
+        AAsset *asset = AAssetManager_open(assetManager, fileName, AASSET_MODE_UNKNOWN);
         assert(NULL != asset);
         int fd = AAsset_openFileDescriptor(asset, &start, &length);
         AAsset_close(asset);

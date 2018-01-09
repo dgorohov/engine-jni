@@ -73,8 +73,8 @@ AudioEffect *AudioManager::createSFX(const char *file) {
     // create audio player
     const unsigned int NUM_INTERFACES = 2;
     const SLInterfaceID ids[NUM_INTERFACES] = {
-            SL_IID_PLAY,
-            SL_IID_SEEK
+        SL_IID_PLAY,
+        SL_IID_SEEK
     };
     const SLboolean req[NUM_INTERFACES] = {SL_BOOLEAN_TRUE};
     SLresult result = (*engine)->CreateAudioPlayer(engine, &effect->audioObject, &audioSrc,

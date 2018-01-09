@@ -1,15 +1,11 @@
-//
-// Created by Gorohov Dmitry on 4/18/17.
-//
-
 #ifndef GAME_ENGINE_JNI_TRANSFORM_H
 #define GAME_ENGINE_JNI_TRANSFORM_H
 
 class vector2d {
 public:
-    float x, y;
+    int x, y;
 
-    vector2d(float x, float y) {
+    vector2d(int x, int y) {
         this->x = x;
         this->y = y;
     }

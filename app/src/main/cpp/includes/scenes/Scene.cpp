@@ -1,9 +1,9 @@
 #include <controls/ObjectContainer.h>
 #include "Scene.h"
 
-void Scene::initialize(float width, float height) {
+void Scene::initialize(int width, int height) {
     container = new ObjectContainer(0, this, sceneName,
-                                    width, height, DEFAULT_POSITION);
+                                    width, height);
 }
 
 void Scene::update() {

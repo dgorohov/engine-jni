@@ -19,7 +19,7 @@ public:
         dispose();
     }
 
-    virtual void initialize(float width, float height);
+    virtual void initialize(int width, int height);
 
     virtual void update();
 

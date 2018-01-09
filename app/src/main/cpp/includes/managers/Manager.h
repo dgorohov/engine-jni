@@ -9,7 +9,9 @@
 class Manager {
 public:
     virtual void dispose() = 0;
+
     virtual void initialize() = 0;
+
     virtual void destroy() = 0;
 };
 

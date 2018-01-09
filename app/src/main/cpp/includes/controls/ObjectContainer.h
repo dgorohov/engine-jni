@@ -3,31 +3,28 @@
 
 #include <vector>
 #include <scenes/Scene.h>
-#include "Vector2d.h"
+#include <controls/Vector2d.h>
+#include <controls/Rect.h>
 
 #define DEFAULT_PADDING     2
-#define DEFAULT_WIDTH       10
-#define DEFAULT_HEIGHT      10
-
-static uint8_t POSITION_NORMAL = 0x0;
-static uint8_t POSITION_VERTICAL = 0x1;
-static uint8_t POSITION_HORIZONTAL = 0x2;
-static uint8_t POSITION_CENTER_BOTH = 0x4;
-static uint8_t POSITION_CENTER_VERTICAL = 0x8;
-static uint8_t POSITION_CENTER_HORIZONTAL = 0x10;
-static uint8_t DEFAULT_POSITION = POSITION_VERTICAL | POSITION_CENTER_VERTICAL;
 
 class ObjectContainer;
 
 class Layout {
-    int _positionFlags;
     ObjectContainer *_container;
-public:
-    Layout(ObjectContainer *container, int flags);
+protected:
+    virtual void layoutChild(ObjectContainer *childContainer);
 
+    virtual void updateChild(ObjectContainer *childContainer, Rect *rect);
+
+public:
     Layout(ObjectContainer *container);
 
     virtual void layoutChildren();
+
+    ObjectContainer *getContainer() const;
+
+    Rect *getRect() const;
 };
 
 class Scene;
@@ -36,15 +33,12 @@ class ObjectContainer {
 private:
     std::vector<ObjectContainer *> children;
     vector2d _relativePosition;
-    float _width, _height;
+    int _width, _height;
     Layout *layout;
     Scene *scene;
     ObjectContainer *parent;
     bool stateDirty;
 
-    ObjectContainer(Scene *scene, const char *name,
-                    float width, float height,
-                    int positionFlags);
 protected:
     virtual ~ObjectContainer();
 
@@ -53,17 +47,18 @@ public:
 
     ObjectContainer(ObjectContainer *parent,
                     Scene *scene, const char *name,
-                    float width, float height,
-                    int positionFlags);
+                    int width, int height);
 
-    ObjectContainer *addChildren(char *name, float width, float height) {
+    ObjectContainer *addChildren(char *name, int width, int height) {
         ObjectContainer *childContainer = new ObjectContainer(
-                this->scene, name, width, height, DEFAULT_POSITION);
+            this, this->scene, name, width, height);
         children.push_back(childContainer);
         return childContainer;
     }
 
     virtual void initialize() {}
+
+    virtual void draw(Rect *rect);
 
     virtual void dispose() {
         for (int i = 0; i < children.size(); i++) {
@@ -76,6 +71,10 @@ public:
 
     std::vector<ObjectContainer *> &getChildren() {
         return children;
+    }
+
+    ObjectContainer *getChildAt(int num) {
+        return children[num];
     }
 
     size_t numChildren() {
@@ -100,11 +99,11 @@ public:
         return _relativePosition;
     }
 
-    float width() const {
+    int width() const {
         return _width;
     }
 
-    float height() const {
+    int height() const {
         return _height;
     }
 };

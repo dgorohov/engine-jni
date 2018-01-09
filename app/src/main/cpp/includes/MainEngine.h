@@ -12,6 +12,7 @@ private:
     Scene *currentScene;
     Scene *nextScene;
     AAssetManager *assetManager;
+
     void setScene(Scene *scene);
 
     int width;
@@ -35,7 +36,7 @@ public:
         FileLoader::makeInstance()->destroy();
     }
 
-    void setAssetManager(AAssetManager* manager) {
+    void setAssetManager(AAssetManager *manager) {
         this->assetManager = manager;
         FileLoader::makeInstance()->initialize(manager);
     }
